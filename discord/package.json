@@ -1,0 +1,22 @@
+{
+  "name": "discord",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "deploy-commands": "node deploy-commands.js",
+    "start:dev": "node --inspect .",
+    "start": "node .",
+    "lint": "eslint ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "discord.js": "^14.11.0",
+    "dotenv": "^16.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.41.0"
+  }
+}
