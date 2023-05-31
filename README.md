@@ -29,5 +29,5 @@ docker build . -t csaf/my-community-discord
 ### 运行
 
 ```bash
-docker run csaf/my-community-discord -d --name my-community-discord -e DISCORD_BOT_TOKEN=
+docker run -d --name my-community-discord -e DISCORD_BOT_TOKEN= csaf/my-community-discord
 ```
