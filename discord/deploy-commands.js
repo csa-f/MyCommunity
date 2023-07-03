@@ -1,18 +1,29 @@
+// 引入discord.js库中的REST和Routes模块
 const { REST, Routes } = require('discord.js');
-const { clientId, guildId, token } = require('./config.json');
+// 引入配置文件中的clientId、guildId
+const { clientId, guildId } = require('./config.json');
+// 引入Node.js中的fs和path模块
 const fs = require('node:fs');
 const path = require('node:path');
 
+const DISCORD_BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
+if (!DISCORD_BOT_TOKEN) {
+  console.log('[ERROR] DISCORD_BOT_TOKEN is not set in environment variables.');
+  process.exit(1);
+}
+
+// 创建空数组用于存储所有命令的数据
 const commands = [];
-// Grab all the command files from the commands directory you created earlier
+// 获取命令文件夹中的所有命令文件
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
 
+// 遍历所有命令文件夹
 for (const folder of commandFolders) {
-  // Grab all the command files from the commands directory you created earlier
+  // 获取当前命令文件夹中的所有命令文件
   const commandsPath = path.join(foldersPath, folder);
   const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
-  // Grab the SlashCommandBuilder#toJSON() output of each command's data for deployment
+  // 遍历当前命令文件夹中的所有命令文件，将每个命令的数据转换为JSON格式并存储到数组中
   for (const file of commandFiles) {
     const filePath = path.join(commandsPath, file);
     const command = require(filePath);
@@ -24,26 +35,26 @@ for (const folder of commandFolders) {
   }
 }
 
-// Construct and prepare an instance of the REST module
-const rest = new REST().setToken(token);
+// 创建REST模块的实例并设置token
+const rest = new REST().setToken(DISCORD_BOT_TOKEN);
 
-// and deploy your commands!
+// 部署所有应用(/)命令
 (async () => {
   try {
     console.log(`Started refreshing ${commands.length} application (/) commands.`);
 
-    // The put method is used to fully refresh all commands in the guild with the current set
+    // 使用put方法将所有应用(/)命令部署到指定的服务器
     const data = await rest.put(
-      // 所有服务器
+      // 部署到所有服务器
       // Routes.applicationCommands(clientId),
-      // 指定服务器
+      // 部署到指定服务器
       Routes.applicationGuildCommands(clientId, guildId),
       { body: commands },
     );
 
     console.log(`Successfully reloaded ${data.length} application (/) commands.`);
   } catch (error) {
-    // And of course, make sure you catch and log any errors!
+    // 如果有错误，则打印错误信息
     console.error(error);
   }
 })();

@@ -1,0 +1,66 @@
+// 构建脚本需要使用的外部库：https://docs.gradle.org/current/userguide/tutorial_using_tasks.html#sec:build_script_external_dependencies
+buildscript {
+  repositories {
+    maven {
+      url "https://maven.aliyun.com/repository/public/"
+    }
+  }
+  dependencies {
+    classpath "org.springframework.boot:spring-boot-gradle-plugin:3.0.6"
+    classpath "io.spring.gradle:dependency-management-plugin:1.1.0"
+  }
+}
+
+// 所有项目应用
+allprojects {
+  group = "top.csaf"
+}
+
+// 子项目共同特征：https://docs.gradle.org/current/userguide/sharing_build_logic_between_subprojects.html
+subprojects {
+  // 配置所有类型为 JavaCompile 的任务
+  tasks.withType(JavaCompile).configureEach {
+    // 编码 UTF-8
+    options.encoding = "UTF-8"
+
+    // 编译选项
+    options.compilerArgs = [
+      // 生成 mapstruct Mapper 实现
+      '-Amapstruct.suppressGeneratorTimestamp=true',
+      '-Amapstruct.suppressGeneratorVersionInfoComment=true'
+    ]
+  }
+
+  apply plugin: 'java'
+  // 因为 subprojects 中不能使用 plugins { id 'org.springframework.boot' version '3.0.6' }，所以用了旧版本写法的 buildscript
+  apply plugin: 'org.springframework.boot'
+  apply plugin: 'io.spring.dependency-management'
+
+  // 源码兼容性，只有应用了 java 插件的项目才能使用，所以不能放在 allprojects 中。
+  sourceCompatibility = '17'
+  // 目标兼容性
+  targetCompatibility = '17'
+
+  // 依赖库源
+  repositories {
+    maven {
+      url "https://maven.aliyun.com/repository/public/"
+    }
+  }
+
+  dependencies {
+    compileOnly 'org.projectlombok:lombok'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation("top.csaf:ZUtil:1.12.1") {
+      exclude group: 'org.slf4j', module: 'slf4j-api'
+      exclude group: 'org.slf4j', module: 'slf4j-simple'
+    }
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  }
+
+  // 测试时，会使用 JUnit Platform 来运行
+  tasks.named('test') {
+    useJUnitPlatform()
+  }
+}

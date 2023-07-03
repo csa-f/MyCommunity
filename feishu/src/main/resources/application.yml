@@ -1,0 +1,39 @@
+server:
+  servlet:
+    context-path: /feishu
+
+forest:
+  # 全局拦截器
+  interceptors:
+    - top.csaf.feishu.config.forest.ForestGlobalInterceptor
+  variables:
+    # 飞书
+    feishu:
+      baseUrl: https://open.feishu.cn/open-apis
+      # 访问凭证：https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/access-credentials
+      auth:
+        # API 版本
+        version: v3
+        # 基础 URL
+        baseUrl: ${forest.variables.feishu.baseUrl}/auth/${forest.variables.feishu.auth.version}
+        # 自建应用获取 tenant_access_token：https://open.feishu.cn/document/server-docs/authentication-management/access-token/tenant_access_token_internal
+        tenantAccessTokenInternal: /tenant_access_token/internal
+      # 多维表格：https://open.feishu.cn/document/server-docs/docs/bitable-v1/bitable-overview
+      bitable:
+        # 记录
+        record:
+          version: v1
+          baseUrl: ${forest.variables.feishu.baseUrl}/bitable/${forest.variables.feishu.bitable.record.version}/apps/{appToken}/tables/{tableId}/records
+      wiki:
+        # 知识库：https://open.feishu.cn/document/server-docs/docs/wiki-v2/wiki-overview
+        spaces:
+          version: v2
+          baseUrl: ${forest.variables.feishu.baseUrl}/wiki/${forest.variables.feishu.wiki.spaces.version}/spaces
+          # 获取知识控件节点：https://open.feishu.cn/document/server-docs/docs/wiki-v2/space-node/get_node
+          getNode: /get_node
+
+feishu:
+  # 需要 tenant_access_token 的接口
+  need-tenant-access-token-urls:
+    - ${forest.variables.feishu.bitable.record.baseUrl}
+    - ${forest.variables.feishu.wiki.spaces.baseUrl}${forest.variables.feishu.wiki.spaces.getNode}
