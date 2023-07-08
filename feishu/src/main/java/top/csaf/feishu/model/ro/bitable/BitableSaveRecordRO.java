@@ -12,7 +12,7 @@ public class BitableSaveRecordRO {
 
   private String id;
   /**
-   * <a href="https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#15d8db94">
+   * <a href="https://open.feishu.cn/document/server-docs/docs/bitable-v1/notification#15d8db94">
    * 一条记录的唯一标识 ID
    * </a>
    */
