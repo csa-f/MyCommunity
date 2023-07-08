@@ -1,7 +1,7 @@
 // 引入discord.js库中的REST和Routes模块
 const { REST, Routes } = require('discord.js');
-// 引入配置文件中的clientId、guildId
-const { clientId, guildId } = require('./config.json');
+// 引入配置文件中的applicationId、guildId
+const { applicationId, guildId } = require('./config.js');
 // 引入Node.js中的fs和path模块
 const fs = require('node:fs');
 const path = require('node:path');
@@ -46,9 +46,9 @@ const rest = new REST().setToken(DISCORD_BOT_TOKEN);
     // 使用put方法将所有应用(/)命令部署到指定的服务器
     const data = await rest.put(
       // 部署到所有服务器
-      // Routes.applicationCommands(clientId),
+      // Routes.applicationCommands(applicationId),
       // 部署到指定服务器
-      Routes.applicationGuildCommands(clientId, guildId),
+      Routes.applicationGuildCommands(applicationId, guildId),
       { body: commands },
     );
 

@@ -6,9 +6,13 @@ MyCommunity，集成 Discord、飞书、QQ 频道等的机器人，旨在帮助�
 
 ## 命令
 
-| 名称     | 内容 |示例|
-|--------|----|-|
-| /about | 关于 ||
+| 名称           | 子命令  | 内容                                                                                 | 示例                                                                      |
+|--------------|------|------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| /about       |      | 关于                                                                                 |                                                                         |
+| /friendchain |      | 友链                                                                                 |                                                                         |
+|              | help | 帮助                                                                                 |                                                                         |
+|              | ls   | 查看友链                                                                               |                                                                         |
+|              | add  | 添加。<br/>`threadid`为`📨帖子话题-posts`中的帖子 ID。<br/>`msgid`为帖子中的消息 ID，如果是帖子中的第一条消息时可以忽略。 | /friendchain add threadid 1114623764911640687 msgid 1114623764911640687 |
 
 # 部署
 
@@ -20,10 +24,10 @@ MyCommunity，集成 Discord、飞书、QQ 频道等的机器人，旨在帮助�
 
 参考：[把一个 Node.js web 应用程序给 Docker 化 | Node.js](https://nodejs.org/zh-cn/docs/guides/nodejs-docker-webapp)
 
-### 删除容器和镜像
+### 停止删除容器和镜像
 
 ```bash
-docker rm my-community-discord & docker rmi csaf/my-community-discord
+docker stop my-community-discord & docker rm my-community-discord & docker rmi csaf/my-community-discord
 ```
 
 ### 构建镜像

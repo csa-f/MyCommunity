@@ -63,7 +63,6 @@ replay_pid*
 
 # Node
 node_modules
-config.json
 process.env
 build
 dist

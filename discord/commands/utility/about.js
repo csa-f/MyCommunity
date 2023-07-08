@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { about } = require('../../config.json');
+const { about } = require('../../config.js');
 
 module.exports = {
   // 命令冷却时间（单位：秒）

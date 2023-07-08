@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { friendChain } = require('../../config.json');
+const { friendChain } = require('../../config.js');
+const { saveFriendChain } = require('../../utils/feishu.js')
 
 module.exports = {
   // 命令冷却时间（单位：秒）
@@ -62,21 +63,7 @@ module.exports = {
         const url = msgContent.match(/\burl\s*:(.*?)(\n|$)/)[1];
         const icon = msgContent.match(/\bicon\s*:(.*?)(\n|$)/)[1];
         const description = msgContent.match(/\bdescription\s*:(.*?)(\n|$)/)[1];
-        // 调用飞书 API
-        const response = await fetch('http://192.168.123.177:8080/feishu/bitable/apps/C0UfbTai0a93BFsUrjOcFd0JnJf/tables/tblZ9a2NAlBvQ4Jz/records', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-          body: JSON.stringify({
-            "fields": {
-              "博客名（Blog Name）": name,
-              "链接（URL）": { "text": url, "link": url },
-              "ICON 链接（ICON URL）":  { "text": icon, "link": icon },
-              "描述（Description）": description
-            }
-          })
-        });
-        const data = await response.json();
-        console.log(data);
+        const data = await saveFriendChain({ name, url, icon, description }).json();
         if (data.code === 0) {
           return interaction.editReply(`Friend chain \`${name}\` added!`);
         }
