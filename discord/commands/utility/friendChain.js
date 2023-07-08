@@ -63,7 +63,7 @@ module.exports = {
         const url = msgContent.match(/\burl\s*:(.*?)(\n|$)/)[1];
         const icon = msgContent.match(/\bicon\s*:(.*?)(\n|$)/)[1];
         const description = msgContent.match(/\bdescription\s*:(.*?)(\n|$)/)[1];
-        const data = await saveFriendChain({ name, url, icon, description }).json();
+        const data = await (await saveFriendChain({ name, url, icon, description })).json();
         if (data.code === 0) {
           return interaction.editReply(`Friend chain \`${name}\` added!`);
         }
