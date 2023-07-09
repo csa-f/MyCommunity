@@ -24,6 +24,8 @@ forest:
         record:
           version: v1
           baseUrl: ${forest.variables.feishu.baseUrl}/bitable/${forest.variables.feishu.bitable.record.version}/apps/{appToken}/tables/{tableId}/records
+          # 更新记录：https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-record/update
+          updateUrl: /{recordId}
       wiki:
         # 知识库：https://open.feishu.cn/document/server-docs/docs/wiki-v2/wiki-overview
         spaces:
@@ -36,4 +38,5 @@ feishu:
   # 需要 tenant_access_token 的接口
   need-tenant-access-token-urls:
     - ${forest.variables.feishu.bitable.record.baseUrl}
+    - ${forest.variables.feishu.bitable.record.baseUrl}${forest.variables.feishu.bitable.record.updateUrl}
     - ${forest.variables.feishu.wiki.spaces.baseUrl}${forest.variables.feishu.wiki.spaces.getNode}

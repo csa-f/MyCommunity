@@ -5,6 +5,7 @@ module.exports = {
   "guildId": "918014031351132160",
   // 关于（about）命令，其中的键值对会循环输出
   "about": {
+    "This Project": "https://github.com/csa-f/MyCommunity",
     "QQ Group": "148917305 https://bit.ly/csaf-qq",
     "Discord": "https://discord.gg/fHPf92KePg",
     "GitHub": "https://github.com/csa-f",

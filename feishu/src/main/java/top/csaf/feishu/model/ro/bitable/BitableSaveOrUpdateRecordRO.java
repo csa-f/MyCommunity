@@ -5,10 +5,10 @@ import lombok.Data;
 import java.util.Map;
 
 /**
- * 云文档-多维表格-记录 响应体
+ * 云文档-多维表格-记录-新增记录 响应体
  */
 @Data
-public class BitableSaveRecordRO {
+public class BitableSaveOrUpdateRecordRO {
 
   private String id;
   /**
@@ -20,7 +20,7 @@ public class BitableSaveRecordRO {
   /**
    * 该记录的创建人
    */
-  private BitableSaveRecordPersonRO created_by;
+  private Person created_by;
   /**
    * 该记录的创建时间
    */
@@ -28,7 +28,7 @@ public class BitableSaveRecordRO {
   /**
    * 该记录最新一次更新的修改人
    */
-  private BitableSaveRecordPersonRO last_modified_by;
+  private Person last_modified_by;
   /**
    * 该记录最近一次的更新时间
    */
@@ -37,4 +37,28 @@ public class BitableSaveRecordRO {
    * 数据表的字段，即数据表的列
    */
   private Map<String, Object> fields;
+
+  @Data
+  public static class Person {
+    /**
+     * 用户 id，id 类型等于 user_id_type 所指定的类型。
+     */
+    private String id;
+    /**
+     * 用户的中文名称
+     */
+    private String name;
+    /**
+     * 用户的英文名称
+     */
+    private String en_name;
+    /**
+     * 用户的邮箱
+     */
+    private String email;
+    /**
+     * 头像链接
+     */
+    private String avatar_url;
+  }
 }
