@@ -57,6 +57,10 @@ module.exports = {
         if (!thread) {
           return interaction.editReply(`Thread \`${threadid}\` not found!`);
         }
+        // 是否为频道线程所有者
+        if (thread.ownerId !== interaction.user.id) {
+          return interaction.editReply(`You are not the owner of thread \`${threadid}\`!`);
+        }
         // 不指定消息 ID 时默认为第一条消息（和帖子线程 ID 相同）
         if (!msgid) {
           msgid = threadid;
@@ -104,6 +108,10 @@ module.exports = {
         const thread = await channel.threads.fetch(threadid);
         if (!thread) {
           return interaction.editReply(`Thread \`${threadid}\` not found!`);
+        }
+        // 是否为频道线程所有者
+        if (thread.ownerId !== interaction.user.id) {
+          return interaction.editReply(`You are not the owner of thread \`${threadid}\`!`);
         }
         // 不指定消息 ID 时默认为第一条消息（和帖子线程 ID 相同）
         if (!msgid) {
