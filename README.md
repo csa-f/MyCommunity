@@ -49,4 +49,11 @@ docker run -d --name my-community-discord -e DISCORD_BOT_TOKEN= csaf/my-communit
 docker stop my-community-discord & docker rm my-community-discord & docker rmi csaf/my-community-discord & docker build . -t csaf/my-community-discord & docker run -d --name my-community-discord -e DISCORD_BOT_TOKEN= csaf/my-community-discord
 ```
 
+### 导出导入镜像
+
+```bash
+docker save -o my-community-discord.tar csaf/my-community-discord:latest
+docker load -i my-community-discord.tar
+```
+
 ## Feishu
