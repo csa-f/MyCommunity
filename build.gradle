@@ -50,6 +50,7 @@ subprojects {
 
   dependencies {
     compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation("top.csaf:ZUtil:1.12.1") {
       exclude group: 'org.slf4j', module: 'slf4j-api'
